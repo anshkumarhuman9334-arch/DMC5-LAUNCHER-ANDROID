@@ -1,0 +1,22 @@
+workflows:
+  android-build:
+    name: DMC5 Launcher APK Build
+    max_build_duration: 60
+    instance_type: linux_x2
+
+    environment:
+      java: 17
+
+    scripts:
+      - name: Check project files
+        script: |
+          ls -la
+          test -f settings.gradle.kts
+          test -f app/build.gradle.kts
+
+      - name: Build Android APK
+        script: |
+          gradle assembleDebug
+
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
